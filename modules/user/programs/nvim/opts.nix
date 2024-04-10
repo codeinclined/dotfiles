@@ -12,8 +12,8 @@
     signcolumn = "yes";
     breakindent = true;
 
-    list = true;
-    listchars = "tab:󰌒\ ,trail:·,nbsp:󱁐";
+    # list = true;
+    # listchars = "trail:·,nbsp:󱁐";
   };
 
   programs.nixvim.globals = {

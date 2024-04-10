@@ -1,6 +1,42 @@
 { ... }:
 
-{
+let
+
+  mkTelescopeKeymap = key: builtinAction: desc: {
+    inherit key;
+    action = "require('telescope.builtin')." + builtinAction;
+    lua = true;
+    mode = "n";
+    options.desc = desc;
+  };
+
+  mkTelescopePathKeymap = key: path: desc: {
+    inherit key;
+    action = "function() require('telescope.builtin').find_files { cwd = vim.fn.expand('${path}') } end";
+    lua = true;
+    mode = "n";
+    options.desc = desc;
+  };
+
+in {
+  programs.nixvim.keymaps = [
+    (mkTelescopeKeymap "<leader>sh" "help_tags"   "[S]earch [H]elp")
+    (mkTelescopeKeymap "<leader>sk" "keymaps"     "[S]earch [K]eymaps")
+    (mkTelescopeKeymap "<leader>sf" "find_files"  "[S]earch [F]iles")
+    (mkTelescopeKeymap "<leader>ss" "builtin"     "[S]earch [S]elect Telescope")
+    (mkTelescopeKeymap "<leader>sw" "grep_string" "[S]earch current [W]ord")
+    (mkTelescopeKeymap "<leader>sg" "live_grep"   "[S]earch by [G]rep")
+    (mkTelescopeKeymap "<leader>sd" "diagnostics" "[S]earch [D]iagnostics")
+    (mkTelescopeKeymap "<leader>sr" "resume"      "[S]earch [R]esume")
+    (mkTelescopeKeymap "<leader>s." "oldfiles"    "[S]earch Recent Files")
+    (mkTelescopeKeymap "<leader>sb" "buffers"     "[S]earch existing [B]uffers")
+
+    (mkTelescopePathKeymap "<leader>spn" "$HOME/dotfiles"  "[S]earch [P]ath: [N]ix")
+    (mkTelescopePathKeymap "<leader>sps" "$HOME/src"       "[S]earch [P]ath: [S]ource files")
+    (mkTelescopePathKeymap "<leader>spb" "$HOME/bitbucket" "[S]earch [P]ath: [B]itbucket")
+    (mkTelescopePathKeymap "<leader>spc" "$HOME/bitbucket" "[S]earch [P]ath: s[C]ratch")
+  ];
+
   programs.nixvim.keymapsOnEvents = {
     LspAttach = [
       {

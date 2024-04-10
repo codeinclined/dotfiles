@@ -11,7 +11,10 @@
       home-manager
       zsh
       zsh-powerlevel10k
+      wezterm.terminfo
 
+      pkgs-unstable.azure-cli
+      pkgs-unstable.zellij
       pkgs-unstable.lazygit
       pkgs-unstable.bat
       pkgs-unstable.eza
