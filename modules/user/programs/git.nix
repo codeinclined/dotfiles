@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.git = {
@@ -8,8 +8,12 @@
 
     extraConfig = {
       init.defaultBranch = "main";
-      credential.credentialStore = "cache";
       push.autoSetupRemote = true;
+
+      credential = {
+        helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
+        credentialStore = "cache";
+      };
     };
   };
 }
