@@ -4,6 +4,7 @@
   environment = {
     systemPackages = with pkgs; [
       git
+      git-credential-manager
       wget
       curl
       wslu
