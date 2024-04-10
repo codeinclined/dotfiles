@@ -9,6 +9,7 @@
     extraConfig = {
       init.defaultBranch = "main";
       credential.credentialStore = "cache";
+      push.autoSetupRemote = true;
     };
   };
 }
