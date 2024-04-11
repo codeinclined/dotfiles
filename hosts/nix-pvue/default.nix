@@ -12,5 +12,17 @@
   ] (p: (modulePath + /host + p));
 
   time.timeZone = "America/Chicago";
-  networking.hostName = "nixos-venus";
+
+  wsl.wslConf.network.generateResolvConf = false;
+
+  networking = {
+    hostName = "nixos-pvue";
+
+    nameservers = [
+      "10.10.10.10"
+      "10.10.10.11"
+      "8.8.8.8"
+      "8.8.4.4"
+    ];
+  };
 }
