@@ -23,7 +23,8 @@
       # programs.zsh.shellInit
       eval "$(zoxide init zsh)"
 
-    '' + (builtins.readFile ./p10k.zsh);
+    '' + (builtins.readFile ./p10k.zsh)
+       + (builtins.readFile ./wezterm.sh);
 
     shellAliases = {
       l = "eza -lhF --git --group-directories-first --icons=auto";
