@@ -16,8 +16,11 @@
     diffview.enable = true;
     cmp-nvim-lsp.enable = true;
     cmp_luasnip.enable = true;
+    cmp-rg.enable = true;
+    rainbow-delimiters.enable = true;
+    undotree.enable = true;
 
-    neogit = {
+    neoscroll = {
       enable = true;
     };
 
@@ -39,6 +42,16 @@
 
     which-key = {
       enable = true;
+    };
+
+    spider = {
+      enable = true;
+      keymaps.motions = {
+        b = "b";
+        e = "e";
+        ge = "ge";
+        w = "w";
+      };
     };
 
     cmp = {
@@ -79,6 +92,7 @@
           { name = "nvim_lsp"; }
           { name = "luasnip"; }
           { name = "path"; }
+          { name = "rg"; }
         ];
 
         snippet = {
