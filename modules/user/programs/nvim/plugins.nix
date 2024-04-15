@@ -103,12 +103,45 @@
       };
     };
 
+    efmls-configs = {
+      enable = true;
+      # externallyManagedPackages = [ "terraform" ];
+      setup = {
+        go = {
+          formatter = [ "gofumpt" "golines" "goimports" ];
+          linter = "go_revive";
+        };
+
+        nix = {
+          formatter = "nixfmt";
+          linter = "statix";
+        };
+
+        /* terraform = {
+          formatter = "terraform_fmt";
+        }; */
+      };
+    };
+
+    lsp-format = {
+      enable = true;
+      setup = {
+        gopls = {
+          exclude = [ "gopls" ];
+          force = true;
+          order = [ "gopls" "efm" ];
+          sync = true;
+        };
+      };
+    };
+
     lsp = {
       enable = true;
       servers = { 
         lua-ls.enable = true;
         gopls.enable = true;
         nixd.enable = true;
+        efm.enable = true;
       };
     };
   };

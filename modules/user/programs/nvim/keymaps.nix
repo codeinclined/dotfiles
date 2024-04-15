@@ -37,6 +37,7 @@ in {
     (mkTelescopePathKeymap "<leader>spc" "$HOME/bitbucket" "[S]earch [P]ath: s[C]ratch")
 
     { key = "<leader>t"; action = "<cmd>Trouble<CR>"; mode = "n"; }
+    { mode = "n"; key = "<leader>-"; action = "<cmd>Oil<CR>"; }
   ];
 
   programs.nixvim.keymapsOnEvents = {
