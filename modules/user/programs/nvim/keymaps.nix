@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 let
 
@@ -36,8 +36,9 @@ in {
     (mkTelescopePathKeymap "<leader>spb" "$HOME/bitbucket" "[S]earch [P]ath: [B]itbucket")
     (mkTelescopePathKeymap "<leader>spc" "$HOME/bitbucket" "[S]earch [P]ath: s[C]ratch")
 
-    { key = "<leader>t"; action = "<cmd>Trouble<CR>"; mode = "n"; }
+    { mode = "n"; key = "<leader>t"; action = "<cmd>Trouble<CR>"; }
     { mode = "n"; key = "<leader>-"; action = "<cmd>Oil<CR>"; }
+    { mode = "n"; key = "<leader>g"; action = "<cmd>Neogit<CR>"; }
   ];
 
   programs.nixvim.keymapsOnEvents = {
