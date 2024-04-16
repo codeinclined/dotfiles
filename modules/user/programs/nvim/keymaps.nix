@@ -38,7 +38,7 @@ in {
 
     { mode = "n"; key = "<leader>t"; action = "<cmd>Trouble<CR>"; }
     { mode = "n"; key = "<leader>-"; action = "<cmd>Oil<CR>"; }
-    { mode = "n"; key = "<leader>g"; action = "<cmd>Neogit<CR>"; }
+    { mode = "n"; key = "<leader>g"; action = "<cmd>LazyGit<CR>"; }
   ];
 
   programs.nixvim.keymapsOnEvents = {

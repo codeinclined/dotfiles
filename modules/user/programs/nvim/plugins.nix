@@ -4,6 +4,7 @@
   programs.nixvim = {
     extraPlugins = with pkgs.vimPlugins; [
       actions-preview-nvim
+      lazygit-nvim
     ];
 
     extraConfigLua = ''
@@ -49,10 +50,6 @@
       };
 
       neoscroll = {
-        enable = true;
-      };
-
-      neogit = {
         enable = true;
       };
 
