@@ -15,7 +15,6 @@
       pass
       azure-cli
       zellij
-      lazygit
       bat
       eza
       fzf

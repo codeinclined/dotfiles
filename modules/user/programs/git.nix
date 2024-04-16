@@ -17,4 +17,20 @@
       };
     };
   };
+
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      gui = {
+        nerdFontsVersion = "3";
+        filterMode = "fuzzy";
+      };
+
+      os = {
+        open = "wslview {{filename}}";
+        editPreset = "nvim";
+        copyToClipboardCommand = "printf '{{text}}' | clip.exe";
+      };
+    };
+  };
 }
