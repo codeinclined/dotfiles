@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, inputs, modulePath, ... }:
+{ config, lib, pkgs, inputs, modulePath, ... }:
 
 {
   system.stateVersion = "23.11";

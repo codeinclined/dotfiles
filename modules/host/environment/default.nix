@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 
 {
   environment = {
@@ -13,16 +13,15 @@
       zsh-powerlevel10k
       wezterm.terminfo
       pass
-
-      pkgs-unstable.azure-cli
-      pkgs-unstable.zellij
-      pkgs-unstable.lazygit
-      pkgs-unstable.bat
-      pkgs-unstable.eza
-      pkgs-unstable.fzf
-      pkgs-unstable.ripgrep
-      pkgs-unstable.zoxide
-      pkgs-unstable.neovim
+      azure-cli
+      zellij
+      lazygit
+      bat
+      eza
+      fzf
+      ripgrep
+      zoxide
+      neovim
     ];
 
     variables = {

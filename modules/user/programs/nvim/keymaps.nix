@@ -63,19 +63,19 @@ in {
       }
       {
         action = "require('telescope.builtin').lsp_document_symbols";
-        key = "<leader>ds";
+        key = "<leader>csd";
         lua = true;
         options.desc = "[D]ocument [S]ymbols";
       }
       {
         action = "require('telescope.builtin').lsp_workspace_symbols";
-        key = "<leader>ws";
+        key = "<leader>csw";
         lua = true;
         options.desc = "[W]orkspace [S]ymbols";
       }
       {
         action = "vim.lsp.buf.rename";
-        key = "<leader>sr";
+        key = "<leader>cr";
         lua = true;
         options.desc = "[S]ymbol [R]ename";
       }
