@@ -80,7 +80,7 @@ in {
         options.desc = "[S]ymbol [R]ename";
       }
       {
-        action = "vim.lsp.buf.code_action";
+        action = "require('actions-preview').code_actions";
         key = "<leader>ca";
         lua = true;
         options.desc = "[C]ode [A]ction";
