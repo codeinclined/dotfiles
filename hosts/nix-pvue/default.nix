@@ -9,6 +9,7 @@
     /users
     /wsl
     /shells/zsh
+    /security
   ] (p: (modulePath + /host + p));
 
   time.timeZone = "America/Chicago";

@@ -12,6 +12,7 @@
       zsh
       zsh-powerlevel10k
       wezterm.terminfo
+      pass
 
       pkgs-unstable.azure-cli
       pkgs-unstable.zellij
