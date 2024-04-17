@@ -1,9 +1,19 @@
 {
   description = "My NixOS configuration";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+    ];
+
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,19 +31,30 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, nixos-wsl, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
     let
       inherit (self) outputs;
+
       system = "x86_64-linux";
       modulePath = ./modules;
+
       specialArgs = {
         inherit inputs system modulePath;
       };
+
+      systemOverlays = { pkgs, ... }: {
+        nixpkgs.overlays = [
+          inputs.neovim-nightly-overlay.overlay
+        ];
+      };
+
+      homeOverlays = { pkgs, ... }@args: systemOverlays args; 
     in {
       nixosConfigurations.nixos-venus = nixpkgs.lib.nixosSystem {
         inherit system specialArgs;
         modules = [
-          nixos-wsl.nixosModules.wsl
+          inputs.nixos-wsl.nixosModules.wsl
+          systemOverlays
           ./hosts/nix-venus
         ];
       };
@@ -41,7 +62,8 @@
       nixosConfigurations.nixos-pvue = nixpkgs.lib.nixosSystem {
         inherit system specialArgs;
         modules = [
-          nixos-wsl.nixosModules.wsl
+          inputs.nixos-wsl.nixosModules.wsl
+          systemOverlays
           ./hosts/nix-pvue
         ];
       };
@@ -50,7 +72,8 @@
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { inherit inputs outputs modulePath; };
         modules = [
-          nixvim.homeManagerModules.nixvim
+          homeOverlays
+          inputs.nixvim.homeManagerModules.nixvim
           ./hosts/nix-venus/users/jtaylor
         ];
       };
@@ -59,7 +82,8 @@
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { inherit inputs outputs modulePath; };
         modules = [
-          nixvim.homeManagerModules.nixvim
+          homeOverlays
+          inputs.nixvim.homeManagerModules.nixvim
           ./hosts/nix-pvue/users/jtaylor
         ];
       };

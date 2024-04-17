@@ -1,4 +1,4 @@
-_:
+{ lib, ... }:
 
 let
 
@@ -12,10 +12,81 @@ let
 
   mkTelescopePathKeymap = key: path: desc: {
     inherit key;
-    action = "function() require('telescope.builtin').find_files { cwd = vim.fn.expand('${path}') } end";
+    action = /* lua */ "function() require('telescope.builtin').find_files { cwd = vim.fn.expand('${path}') } end";
     lua = true;
     mode = "n";
     options.desc = desc;
+  };
+
+  mkPopupShellOutputKeymap = key: commandList: desc: {
+    inherit key;
+    lua = true;
+    options.desc = desc;
+    action = /* lua */ ''
+      function()
+        local Popup = require("nui.popup")
+        local Layout = require("nui.layout")
+        
+        local stdOutPopup = Popup({
+          enter = true,
+          focusable = true,
+          border = "single",
+        })
+        local stdErrPopup = Popup({
+          focusable = true,
+          border = "single",
+        })
+        local summaryPopup = Popup({
+          focusable = true,
+          border = "single",
+        })
+
+        local layout = Layout(
+          {
+            position = "50%",
+            size = {
+              width = "80%",
+              height = "80%",
+            },
+          },
+          Layout.Box({
+            Layout.Box(stdOutPopup, { size = "40%" }),
+            Layout.Box(stdErrPopup, { size = "40%" }),
+            Layout.Box(summaryPopup, { size = "20%" }),
+          }, { dir = "col" })
+        )
+
+        layout:mount()
+
+        stdOutPopup:map("n", "q", function() layout:unmount() end)
+        stdErrPopup:map("n", "q", function() layout:unmount() end)
+        summaryPopup:map("n", "q", function() layout:unmount() end)
+
+        vim.api.nvim_buf_set_lines(summaryPopup.bufnr, 0, 0, false, { "Waiting on command..." })
+
+        local on_exit = function(obj)
+          local output_text = ' '
+          if (obj.stdout == nil or string.len(obj.stdout) < 1) then
+            output_text = '<stdout empty>'
+          else
+            output_text = obj.stdout
+          end
+
+          local error_text = ' '
+          if (obj.stderr == nil or string.len(obj.stderr) < 1) then
+            error_text = '<stderr empty>'
+          else
+            error_text = obj.stderr
+          end
+
+          vim.api.nvim_buf_set_lines(stdOutPopup.bufnr, 0, 1, false, { output_text })
+          vim.api.nvim_buf_set_lines(stdErrPopup.bufnr, 0, 1, false, { error_text })
+          vim.api.nvim_buf_set_lines(summaryPopup.bufnr, 0, 1, false, { "Execution finished with code: " .. obj.code })
+        end
+
+        vim.system({"${lib.strings.concatStringsSep "\", \"" commandList}"}, { text = true }, vim.schedule_wrap(on_exit))
+      end
+    '';
   };
 
 in {
@@ -35,6 +106,8 @@ in {
     (mkTelescopePathKeymap "<leader>sps" "$HOME/src"       "[S]earch [P]ath: [S]ource files")
     (mkTelescopePathKeymap "<leader>spb" "$HOME/bitbucket" "[S]earch [P]ath: [B]itbucket")
     (mkTelescopePathKeymap "<leader>spc" "$HOME/bitbucket" "[S]earch [P]ath: s[C]ratch")
+
+    (mkPopupShellOutputKeymap "<leader>lgt" ["go" "mod" "tidy"] "Run 'go mod tidy' in an NUI floating window")
 
     { mode = "n"; key = "<leader>t"; action = "<cmd>Trouble<CR>"; }
     { mode = "n"; key = "<leader>-"; action = "<cmd>Oil<CR>"; }

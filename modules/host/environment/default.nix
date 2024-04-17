@@ -20,7 +20,7 @@
       fzf
       ripgrep
       zoxide
-      neovim
+      neovim-nightly
     ];
 
     variables = {
