@@ -64,11 +64,11 @@
       noice = {
         enable = true;
         lsp = {
-            override = {
-              "vim.lsp.util.convert_input_to_markdown_lines" = true;
-              "vim.lsp.util.stylize_markdown" = true;
-              "cmp.entry.get_documentation" = true;
-            };
+          override = {
+            "vim.lsp.util.convert_input_to_markdown_lines" = true;
+            "vim.lsp.util.stylize_markdown" = true;
+            "cmp.entry.get_documentation" = true;
+          };
         };
 
         presets = {
@@ -151,45 +151,45 @@
         };
       };
 
-      efmls-configs = {
+      none-ls = {
         enable = true;
-        # externallyManagedPackages = [ "terraform" ];
-        setup = {
-          go = {
-            formatter = [ "gofumpt" "golines" "goimports" ];
-            linter = "go_revive";
+        enableLspFormat = true;
+
+        sources = {
+          code_actions = {
+            refactoring.enable = true;
+            statix.enable = true;
           };
 
-          nix = {
-            formatter = "nixfmt";
-            linter = "statix";
+          diagnostics = {
+            revive.enable = true;
+            statix.enable = true;
           };
 
-          /* terraform = {
-            formatter = "terraform_fmt";
-          }; */
+          formatting = {
+            gofumpt.enable = true;
+            goimports_reviser.enable = true;
+            golines.enable = true;
+            nixpkgs_fmt.enable = true;
+            hclfmt.enable = true;
+          };
+
+          hover = {
+            dictionary.enable = true;
+          };
         };
       };
 
       lsp-format = {
         enable = true;
-        setup = {
-          gopls = {
-            exclude = [ "gopls" ];
-            force = true;
-            order = [ "gopls" "efm" ];
-            sync = true;
-          };
-        };
       };
 
       lsp = {
         enable = true;
-        servers = { 
+        servers = {
           lua-ls.enable = true;
           gopls.enable = true;
           nixd.enable = true;
-          efm.enable = true;
         };
       };
     };
