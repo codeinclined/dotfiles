@@ -30,7 +30,6 @@
       gitsigns.enable = true;
       telescope.enable = true;
       oil.enable = true;
-      luasnip.enable = true;
       dap.enable = true;
       fidget.enable = true;
       sleuth.enable = true;
@@ -42,6 +41,13 @@
       cmp-rg.enable = true;
       rainbow-delimiters.enable = true;
       undotree.enable = true;
+
+      luasnip = {
+        enable = true;
+        fromLua = [
+          ./snippets
+        ];
+      };
 
       treesitter = {
         enable = true;
@@ -190,6 +196,14 @@
           lua-ls.enable = true;
           gopls.enable = true;
           nixd.enable = true;
+
+          jsonls = {
+            enable = true;
+          };
+
+          yamlls = {
+            enable = true;
+          };
         };
       };
     };
