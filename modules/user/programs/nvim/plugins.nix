@@ -45,7 +45,8 @@
       luasnip = {
         enable = true;
         fromLua = [
-          ./snippets
+          { }
+          { paths = ./snippets; }
         ];
       };
 
@@ -193,9 +194,12 @@
       lsp = {
         enable = true;
         servers = {
-          lua-ls.enable = true;
           gopls.enable = true;
           nixd.enable = true;
+
+          lua-ls = {
+            enable = true;
+          };
 
           jsonls = {
             enable = true;
