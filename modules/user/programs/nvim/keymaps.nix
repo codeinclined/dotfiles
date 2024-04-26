@@ -89,25 +89,46 @@ let
     '';
   };
 
-in {
-  programs.nixvim.keymaps = [
-    (mkTelescopeKeymap "<leader>sh" "help_tags"   "[S]earch [H]elp")
-    (mkTelescopeKeymap "<leader>sk" "keymaps"     "[S]earch [K]eymaps")
-    (mkTelescopeKeymap "<leader>sf" "find_files"  "[S]earch [F]iles")
-    (mkTelescopeKeymap "<leader>ss" "builtin"     "[S]earch [S]elect Telescope")
-    (mkTelescopeKeymap "<leader>sw" "grep_string" "[S]earch current [W]ord")
-    (mkTelescopeKeymap "<leader>sg" "live_grep"   "[S]earch by [G]rep")
-    (mkTelescopeKeymap "<leader>sd" "diagnostics" "[S]earch [D]iagnostics")
-    (mkTelescopeKeymap "<leader>sr" "resume"      "[S]earch [R]esume")
-    (mkTelescopeKeymap "<leader>s." "oldfiles"    "[S]earch Recent Files")
-    (mkTelescopeKeymap "<leader>sb" "buffers"     "[S]earch existing [B]uffers")
+  mkLuaSnipChoiceNav = key: delta: {
+    inherit key;
 
-    (mkTelescopePathKeymap "<leader>spn" "$HOME/dotfiles"  "[S]earch [P]ath: [N]ix")
-    (mkTelescopePathKeymap "<leader>sps" "$HOME/src"       "[S]earch [P]ath: [S]ource files")
+    mode = [ "i" "s" ];
+    lua = true;
+    action = /* lua */ ''
+      function()
+        local ls = require('luasnip')
+        if ls.choice_active() then
+          ls.change_choice(${delta})
+        end
+      end
+    '';
+  };
+
+in
+{
+  programs.nixvim.keymaps = [
+    (mkTelescopeKeymap "<leader>sh" "help_tags" "[S]earch [H]elp")
+    (mkTelescopeKeymap "<leader>sk" "keymaps" "[S]earch [K]eymaps")
+    (mkTelescopeKeymap "<leader>sf" "find_files" "[S]earch [F]iles")
+    (mkTelescopeKeymap "<leader>ss" "builtin" "[S]earch [S]elect Telescope")
+    (mkTelescopeKeymap "<leader>sw" "grep_string" "[S]earch current [W]ord")
+    (mkTelescopeKeymap "<leader>sg" "live_grep" "[S]earch by [G]rep")
+    (mkTelescopeKeymap "<leader>sd" "diagnostics" "[S]earch [D]iagnostics")
+    (mkTelescopeKeymap "<leader>sr" "resume" "[S]earch [R]esume")
+    (mkTelescopeKeymap "<leader>s." "oldfiles" "[S]earch Recent Files")
+    (mkTelescopeKeymap "<leader>sb" "buffers" "[S]earch existing [B]uffers")
+
+    (mkTelescopePathKeymap "<leader>spn" "$HOME/dotfiles" "[S]earch [P]ath: [N]ix")
+    (mkTelescopePathKeymap "<leader>sps" "$HOME/src" "[S]earch [P]ath: [S]ource files")
     (mkTelescopePathKeymap "<leader>spb" "$HOME/bitbucket" "[S]earch [P]ath: [B]itbucket")
     (mkTelescopePathKeymap "<leader>spc" "$HOME/bitbucket" "[S]earch [P]ath: s[C]ratch")
 
-    (mkPopupShellOutputKeymap "<leader>lgt" ["go" "mod" "tidy"] "Run 'go mod tidy' in an NUI floating window")
+    (mkPopupShellOutputKeymap "<leader>lgt" [ "go" "mod" "tidy" ] "Run 'go mod tidy' in an NUI floating window")
+
+    { mode = [ "i" "s" ]; key = "<M-n>"; lua = true; action = /* lua */ "function() require('luasnip').jump(-1) end"; }
+    { mode = [ "i" "s" ]; key = "<M-o>"; lua = true; action = /* lua */ "function() require('luasnip').jump(1) end"; }
+    (mkLuaSnipChoiceNav "<M-e>" "1")
+    (mkLuaSnipChoiceNav "<M-i>" "-1")
 
     { mode = "n"; key = "<leader>t"; action = "<cmd>Trouble<CR>"; }
     { mode = "n"; key = "<leader>-"; action = "<cmd>Oil<CR>"; }
