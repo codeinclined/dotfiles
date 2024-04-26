@@ -143,9 +143,22 @@
             })
           '';
 
+          preselect = "cmp.PreselectMode.None";
+
+          sorting.comparators = [
+            "require('cmp.config.compare').exact"
+            "require('cmp.config.compare').score"
+            "require('cmp.config.compare').offset"
+            "require('cmp.config.compare').recently_used"
+            "require('cmp.config.compare').locality"
+            "require('cmp.config.compare').kind"
+            "require('cmp.config.compare').length"
+            "require('cmp.config.compare').order"
+          ];
+
           sources = [
-            { name = "nvim_lsp"; }
             { name = "luasnip"; }
+            { name = "nvim_lsp"; }
             { name = "path"; }
             { name = "rg"; }
           ];
