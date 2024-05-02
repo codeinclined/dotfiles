@@ -1,14 +1,7 @@
-{ inputs, outputs, lib, config, pkgs, modulePath, ... }: 
+{ modulePath, ... }:
 
 {
-  imports = lib.lists.forEach [
-    /files
-    /programs/nvim
-    /programs/direnv.nix
-    /programs/fzf.nix
-    /programs/git.nix
-    /programs/zsh.nix
-  ] (p: (modulePath + /user + p));
+  imports = [ (modulePath + /user) ];
 
   home = {
     stateVersion = "23.11";

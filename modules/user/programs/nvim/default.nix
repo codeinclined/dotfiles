@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 let
   mkTreesitterQuerySet = path: lib.attrsets.genAttrs
@@ -20,8 +20,12 @@ in
     ./colorschemes.nix
   ];
 
-  programs.nixvim = {
-    enable = true;
+  options.hm.nvim = {
+    disable = lib.mkEnableOption (lib.mdDoc "Disable neovim");
+  };
+
+  config.programs.nixvim = with config.hm.nvim; {
+    enable = !disable;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;

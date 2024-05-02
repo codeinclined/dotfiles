@@ -1,8 +1,12 @@
-{ ... }:
+{ config, lib, ... }:
 
 {
-  programs.zsh = {
-    enable = true;
+  options.hm.zsh = {
+    disable = lib.mkEnableOption (lib.mdDoc "Disable zsh");
+  };
+
+  config.programs.zsh = with config.hm.zsh; {
+    enable = !disable;
     autocd = false;
     dotDir = ".config/zsh";
   };

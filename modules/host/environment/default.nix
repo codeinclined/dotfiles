@@ -14,7 +14,6 @@
       wezterm.terminfo
       pass
       azure-cli
-      zellij
       bat
       eza
       fzf

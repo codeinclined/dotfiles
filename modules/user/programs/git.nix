@@ -1,8 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 
 {
-  programs.git = {
-    enable = true;
+  options.hm.git = {
+    disable = lib.mkEnableOption (lib.mdDoc "Disable git");
+    lazygit.disable = lib.mkEnableOption (lib.mdDoc "Disable lazygit");
+  };
+
+  config.programs.git = with config.hm.git; {
+    enable = !disable;
     userName = "Josh Taylor";
     userEmail = "taylor.joshua88@gmail.com";
 
@@ -18,9 +23,9 @@
     };
   };
 
-  programs.lazygit = {
-    enable = true;
-    settings = {
+  config.programs.lazygit = with config.hm.git; {
+    enable = !disable && !lazygit.disable;
+    settings = with lazygit; {
       gui = {
         nerdFontsVersion = "3";
         filterMode = "fuzzy";
