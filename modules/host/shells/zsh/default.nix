@@ -19,12 +19,12 @@
       "HIST_FCNTL_LOCK"
     ];
 
-    shellInit = '' 
-      # programs.zsh.shellInit
+    interactiveShellInit = '' 
+      # programs.zsh.interactiveShellInit
       eval "$(zoxide init zsh)"
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-    '' + (builtins.readFile ./p10k.zsh)
-       + (builtins.readFile ./wezterm.sh);
+    '' + (builtins.readFile ./p10k.zsh) + (builtins.readFile ./wezterm.sh);
 
     shellAliases = {
       l = "eza -lhF --git --group-directories-first --icons=auto";

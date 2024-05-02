@@ -11,6 +11,7 @@
       home-manager
       zsh
       zsh-powerlevel10k
+      zsh-vi-mode
       wezterm.terminfo
       pass
       azure-cli
