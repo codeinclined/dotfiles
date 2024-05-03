@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 {
   programs.nixvim.autoGroups = {
@@ -57,6 +57,8 @@
           end
 
           local filename = string.match(tostring(vim.api.nvim_buf_get_name(0)), '[^/\\]+$')
+          local typesymbol = ''
+          local typecolor = "#ffffff"
           if filename == nil then
             local buf_type = 'scratch'
 
@@ -65,18 +67,27 @@
             buf_type = oil_dir and 'oil' or buf_type
 
             local buf_symbols = {
-              oil = ' ' .. tostring(oil_dir),
+              oil = '',
               scratch = '󰛄',
             }
 
-            filename = (buf_symbols[buf_type] or '')
+            local buf_filenames = {
+              oil = tostring(oil_dir),
+              scratch = "",
+            }
+
+            typesymbol = (buf_symbols[buf_type] or '')
+            filename = (buf_filenames[buf_type] or '(unk)')
           else
             local extension = string.match(filename, '%w+$')
-            local devicon = require('nvim-web-devicons').get_icon(filename, extension, { default = true })
-            filename = devicon .. ' ' .. filename
+            local devicon, devicon_color = require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
+            typesymbol = devicon
+            typecolor = devicon_color
+            filename = filename or '(unk)'
+            typecolor = devicon_color or typecolor
           end
 
-          io.write('\x1b]1337;SetUserVar=NVIM_BUF=' .. encode_b64(filename) .. '\x07')
+          io.write('\x1b]1337;SetUserVar=NVIM_BUF=' .. encode_b64(typecolor .. ";" .. typesymbol .. ";" .. filename) .. '\x07')
         end
       '';
     }
