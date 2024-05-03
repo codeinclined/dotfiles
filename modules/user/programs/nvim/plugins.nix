@@ -5,9 +5,19 @@
     extraPlugins = with pkgs.vimPlugins; [
       actions-preview-nvim
       lazygit-nvim
+    ] ++ [
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "nvim-material-icon";
+        src = pkgs.fetchFromGitHub {
+          owner = "DaikyXendo";
+          repo = "nvim-material-icon";
+          rev = "0fb0e440924e6cf2490542f91672257121026a85";
+          hash = "sha256-TEaaP4q3S23Y6Pkcxsic4AObFJmXd88oVxTdyyyhA2c=";
+        };
+      })
     ];
 
-    extraConfigLua = ''
+    extraConfigLua = /* lua */ ''
       require("actions-preview").setup {
         telescope = {
           sorting_strategy = "ascending",
@@ -23,6 +33,31 @@
           }
         }
       }
+
+      local web_devicons_ok, web_devicons = pcall(require, "nvim-web-devicons")
+      if not web_devicons_ok then
+        return
+      end
+
+      local material_icon_ok, material_icon = pcall(require, "nvim-material-icon")
+      if not material_icon_ok then
+        return
+      end
+
+      material_icon.setup({
+        override = {
+          ["hcl"] = {
+              icon = "󱁢",
+              color = "#519aba",
+              cterm_color = "67",
+              name = "HCL",
+          },
+        }
+      })
+
+      web_devicons.setup({
+        override = material_icon.get_icons(),
+      })
     '';
 
     plugins = {

@@ -71,7 +71,9 @@
 
             filename = (buf_symbols[buf_type] or '')
           else
-            filename = ' ' .. filename
+            local extension = string.match(filename, '%w+$')
+            local devicon = require('nvim-web-devicons').get_icon(filename, extension, { default = true })
+            filename = devicon .. ' ' .. filename
           end
 
           io.write('\x1b]1337;SetUserVar=NVIM_BUF=' .. encode_b64(filename) .. '\x07')
