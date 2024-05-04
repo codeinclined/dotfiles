@@ -51,42 +51,64 @@
       homeOverlays = systemOverlays;
     in
     {
-      nixosConfigurations.nixos-wsl-venus = nixpkgs.lib.nixosSystem {
-        inherit system specialArgs;
-        modules = [
-          inputs.nixos-wsl.nixosModules.wsl
-          systemOverlays
-          ./hosts/nixos-wsl-venus
-        ];
+      nixosConfigurations = {
+        nixos-venus = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = [
+            systemOverlays
+            ./hosts/nixos-venus
+          ];
+        };
+
+        nixos-wsl-venus = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = [
+            inputs.nixos-wsl.nixosModules.wsl
+            systemOverlays
+            ./hosts/nixos-wsl-venus
+          ];
+        };
+
+        nixos-wsl-pvue = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = [
+            inputs.nixos-wsl.nixosModules.wsl
+            systemOverlays
+            ./hosts/nixos-wsl-pvue
+          ];
+        };
       };
 
-      nixosConfigurations.nixos-wsl-pvue = nixpkgs.lib.nixosSystem {
-        inherit system specialArgs;
-        modules = [
-          inputs.nixos-wsl.nixosModules.wsl
-          systemOverlays
-          ./hosts/nixos-wsl-pvue
-        ];
-      };
+      homeConfigurations = {
+        "jtaylor@nixos-venus" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = { inherit inputs outputs modulePath; };
+          modules = [
+            homeOverlays
+            inputs.nixvim.homeManagerModules.nixvim
+            ./hosts/nixos-wsl-venus/users/jtaylor
+          ];
+        };
 
-      homeConfigurations."jtaylor@nixos-wsl-venus" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = { inherit inputs outputs modulePath; };
-        modules = [
-          homeOverlays
-          inputs.nixvim.homeManagerModules.nixvim
-          ./hosts/nixos-wsl-venus/users/jtaylor
-        ];
-      };
+        "jtaylor@nixos-wsl-venus" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = { inherit inputs outputs modulePath; };
+          modules = [
+            homeOverlays
+            inputs.nixvim.homeManagerModules.nixvim
+            ./hosts/nixos-wsl-venus/users/jtaylor
+          ];
+        };
 
-      homeConfigurations."jtaylor@nixos-wsl-pvue" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = { inherit inputs outputs modulePath; };
-        modules = [
-          homeOverlays
-          inputs.nixvim.homeManagerModules.nixvim
-          ./hosts/nixos-wsl-pvue/users/jtaylor
-        ];
+        "jtaylor@nixos-wsl-pvue" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = { inherit inputs outputs modulePath; };
+          modules = [
+            homeOverlays
+            inputs.nixvim.homeManagerModules.nixvim
+            ./hosts/nixos-wsl-pvue/users/jtaylor
+          ];
+        };
       };
     };
 }
