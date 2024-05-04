@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, modulePath, ... }:
+{ lib, modulePath, ... }:
 
 {
   system.stateVersion = "23.11";
@@ -10,8 +10,9 @@
     /wsl
     /shells/zsh
     /security
-  ] (p: (modulePath + /host + p));
+  ]
+    (p: (modulePath + /host + p));
 
   time.timeZone = "America/Chicago";
-  networking.hostName = "nixos-venus";
+  networking.hostName = "nixos-wsl-venus";
 }
