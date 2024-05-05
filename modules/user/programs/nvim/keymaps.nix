@@ -133,6 +133,8 @@ in
     { mode = "n"; key = "<leader>t"; action = "<cmd>Trouble<CR>"; }
     { mode = "n"; key = "<leader>-"; action = "<cmd>Oil<CR>"; }
     { mode = "n"; key = "<leader>g"; action = "<cmd>LazyGit<CR>"; }
+
+    { mode = "n"; key = "<leader>na"; action = ''<cmd>s:^\(\s*\)\(\w\+\)\.\(.*\)$:\1\2 = {\r\1  \3\r\1};<CR>''; }
   ];
 
   programs.nixvim.keymapsOnEvents = {

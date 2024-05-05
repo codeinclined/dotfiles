@@ -20,11 +20,19 @@
       fzf
       ripgrep
       zoxide
-      neovim-nightly
+      neovim
+
+      # TODO: MAKE THIS NOT INSTALLED IN WSL
+      kdePackages.plasma-browser-integration
     ];
 
     variables = {
       EDITOR = "nvim";
+    };
+
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      STEAM_FORCE_DESKTOPUI_SCALING = 1.25;
     };
   };
 }

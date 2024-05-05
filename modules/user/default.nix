@@ -1,8 +1,9 @@
-_:
+{ lib, ... }:
 
 {
   imports = [
     ./files
     ./programs
+    ./gui
   ];
 }

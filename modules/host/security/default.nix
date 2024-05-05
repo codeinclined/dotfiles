@@ -5,7 +5,7 @@
     agent = {
       enable = true;
       enableExtraSocket = true;
-      pinentryPackage = pkgs.pinentry-gtk2;
+      pinentryPackage = pkgs.pinentry-qt;
       settings = {
         default-cache-ttl = 28800;
         max-cache-ttl = 28800;

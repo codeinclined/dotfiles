@@ -40,11 +40,12 @@
 
       specialArgs = {
         inherit inputs system modulePath;
+        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ inputs.neovim-nightly-overlay.overlay ]; };
       };
 
       systemOverlays = _: {
         nixpkgs.overlays = [
-          inputs.neovim-nightly-overlay.overlay
+          # inputs.neovim-nightly-overlay.overlay
         ];
       };
 
@@ -55,7 +56,6 @@
         nixos-venus = nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
           modules = [
-            systemOverlays
             ./hosts/nixos-venus
           ];
         };
