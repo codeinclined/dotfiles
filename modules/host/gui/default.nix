@@ -8,13 +8,18 @@
   config = {
     fonts = lib.mkIf config.nx.gui.enable {
       packages = with pkgs; [
+        nacelle
+        caladea
         noto-fonts
         noto-fonts-cjk
         noto-fonts-emoji
         noto-fonts-extra
+        roboto
+        roboto-mono
+        roboto-serif
+        roboto-slab
         liberation_ttf
         meslo-lgs-nf
-        helvetica-neue-lt-std
       ];
     };
 

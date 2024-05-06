@@ -11,7 +11,6 @@
       home-manager
       zsh
       zsh-powerlevel10k
-      zsh-vi-mode
       wezterm.terminfo
       pass
       azure-cli
@@ -28,11 +27,11 @@
 
     variables = {
       EDITOR = "nvim";
+      STEAM_FORCE_DESKTOPUI_SCALING = "1.25";
     };
 
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
-      STEAM_FORCE_DESKTOPUI_SCALING = 1.25;
     };
   };
 }

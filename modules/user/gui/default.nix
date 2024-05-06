@@ -6,6 +6,10 @@
   };
 
   config = {
+    home.packages = with pkgs; [
+      xivlauncher
+    ];
+
     services = {
       spotifyd = {
         enable = true;

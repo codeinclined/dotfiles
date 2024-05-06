@@ -13,7 +13,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -40,7 +40,7 @@
 
       specialArgs = {
         inherit inputs system modulePath;
-        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ inputs.neovim-nightly-overlay.overlay ]; };
+        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
       };
 
       systemOverlays = _: {
@@ -81,7 +81,7 @@
 
       homeConfigurations = {
         "jtaylor@nixos-venus" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
           extraSpecialArgs = { inherit inputs outputs modulePath; };
           modules = [
             homeOverlays

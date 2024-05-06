@@ -22,7 +22,6 @@
     interactiveShellInit = '' 
       # programs.zsh.interactiveShellInit
       eval "$(zoxide init zsh)"
-      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
     '' + (builtins.readFile ./p10k.zsh) + (builtins.readFile ./wezterm.sh);
 
