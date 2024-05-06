@@ -1,27 +1,40 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-amd" ];
+    extraModulePackages = [ ];
+    supportedFilesystems = [ "ntfs" ];
+  };
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/NIXROOT";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/NIXROOT";
       fsType = "ext4";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/NIXBOOT";
+    "/mnt/win_c" = {
+      device = "/dev/disk/by-uuid/0EA8EDFDA8EDE2E7";
+      fsType = "ntfs-3g";
+      options = [ "rw" "users" "nofail" ];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+  };
 
-  swapDevices = [ ];
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 2048;
+    randomEncryption.enable = true;
+  }];
 
   networking.useDHCP = lib.mkDefault true;
 
