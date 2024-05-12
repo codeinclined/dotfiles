@@ -2,7 +2,7 @@ local wezterm = require('wezterm')
 local config = {}
 
 config.color_scheme = "Catppuccin Mocha"
-config.font = wezterm.font("MesloLGS NF")
+config.font = wezterm.font("CommitMono Nerd Font")
 config.font_size = 14.0
 
 -- config.wsl_domains = {

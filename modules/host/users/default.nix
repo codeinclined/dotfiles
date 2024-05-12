@@ -9,7 +9,7 @@
     users = {
       jtaylor = {
         isNormalUser = true;
-        extraGroups = [ "wheel" ];
+        extraGroups = [ "wheel" "gamemode" ];
       };
     };
   };

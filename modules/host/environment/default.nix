@@ -7,7 +7,8 @@
       git-credential-manager
       wget
       curl
-      wslu
+      # TODO: Add proper option for toggling this
+      #wslu
       home-manager
       zsh
       zsh-powerlevel10k
@@ -23,6 +24,9 @@
 
       # TODO: MAKE THIS NOT INSTALLED IN WSL
       kdePackages.plasma-browser-integration
+
+      wine-wayland
+      wineWowPackages.waylandFull
     ];
 
     variables = {

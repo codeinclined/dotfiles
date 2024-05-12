@@ -29,6 +29,8 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
@@ -55,7 +57,9 @@
       nixosConfigurations = {
         nixos-venus = nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
-          modules = [
+          modules = with inputs.nixos-hardware.nixosModules; [
+            common-cpu-amd-pstate
+            common-pc-ssd
             ./hosts/nixos-venus
           ];
         };

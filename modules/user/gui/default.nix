@@ -8,6 +8,8 @@
   config = {
     home.packages = with pkgs; [
       xivlauncher
+      playerctl
+      discord
     ];
 
     services = {

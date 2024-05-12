@@ -30,21 +30,54 @@
     driSupport32Bit = true;
   };
 
+  environment.sessionVariables.SDL_VIDEODRIVER = "wayland";
+
   services = {
     xserver.videoDrivers = [ "nvidia" ];
     desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
+
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+      autoNumlock = true;
+      settings = {
+        Autologin = {
+          Session = "plasma.desktop";
+          User = "jtaylor";
+          Relogin = true;
+        };
+      };
+    };
   };
 
-  programs.gamemode.enable = true;
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      general = {
+        inhibit_screensaver = 0;
+        renice = 20;
+      };
+
+      gpu = {
+        # apply_gpu_optimisations = "accept-responsibility";
+        # gpu_device = 1;
+      };
+
+      cpu = {
+        desiredgov = "performance";
+        defaultgov = "powersave";
+        park_cores = "no";
+        pin_cores = "yes";
+      };
+    };
+  };
 
   hardware = {
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       modesetting.enable = true;
-      powerManagement.enable = false;
+      powerManagement.enable = true;
       powerManagement.finegrained = false;
 
       open = false;

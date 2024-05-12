@@ -20,6 +20,7 @@
         roboto-slab
         liberation_ttf
         meslo-lgs-nf
+        (nerdfonts.override { fonts = [ "CommitMono" ]; })
       ];
     };
 
