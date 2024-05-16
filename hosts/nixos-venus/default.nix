@@ -1,4 +1,4 @@
-{ config, lib, modulePath, ... }:
+{ config, lib, modulePath, pkgs, ... }:
 
 {
   system.stateVersion = "23.11";
@@ -19,8 +19,11 @@
   time.timeZone = "America/Chicago";
   networking.hostName = "nixos-venus";
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    kernelPackages = pkgs.linuxPackages_zen;
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -28,24 +31,36 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+      vaapiVdpau
+      libvdpau
+    ];
   };
 
-  environment.sessionVariables.SDL_VIDEODRIVER = "wayland";
 
   services = {
     xserver.videoDrivers = [ "nvidia" ];
     desktopManager.plasma6.enable = true;
+
+    udev.extraRules = ''
+      # PS5 DualSense controller over USB hidraw
+      KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ce6", MODE="0660", TAG+="uaccess"
+
+      # PS5 DualSense controller over bluetooth hidraw
+      KERNEL=="hidraw*", KERNELS=="*054C:0CE6*", MODE="0660", TAG+="uaccess"
+    '';
 
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
       autoNumlock = true;
       settings = {
-        Autologin = {
+        /* Autologin = {
           Session = "plasma.desktop";
           User = "jtaylor";
           Relogin = true;
-        };
+        }; */
       };
     };
   };
@@ -80,7 +95,7 @@
       powerManagement.enable = true;
       powerManagement.finegrained = false;
 
-      open = false;
+      open = true;
 
       nvidiaSettings = true;
     };

@@ -10,9 +10,14 @@
       xivlauncher
       playerctl
       discord
+      kdePackages.plasma-browser-integration
     ];
 
     services = {
+      pass-secret-service = {
+        enable = true;
+      };
+
       spotifyd = {
         enable = true;
         settings.global = {
@@ -41,10 +46,12 @@
       package = pkgs.brave;
       extensions = [
         # Microsoft Autofill
-        { id = "fiedbfgcleddlbcmgdigjgdfcggjcion"; }
+        # { id = "fiedbfgcleddlbcmgdigjgdfcggjcion"; }
+        # Bitwarden
+        { id = "nngceckbapebfimnlniiiahkandclblb"; }
         # Dark Reader
         { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; }
-        # Plasma Integration
+        # # Plasma Integration
         { id = "cimiefiiaegbelhefglklhhakcgmhkai"; }
         # Tabliss
         { id = "hipekcciheckooncpjeljhnekcoolahp"; }

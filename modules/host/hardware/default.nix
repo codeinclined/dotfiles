@@ -14,7 +14,8 @@
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/NIXROOT";
-      fsType = "ext4";
+      fsType = "btrfs";
+      options = [ "compress=lzo" ];
     };
 
     "/mnt/win_c" = {
