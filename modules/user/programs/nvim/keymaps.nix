@@ -18,6 +18,53 @@ let
     options.desc = desc;
   };
 
+  mkMenuKeymap = mode: key: desc: luaAction: {
+    inherit mode key;
+    options.desc = desc;
+    lua = true;
+    action = /* lua */ ''
+      function()
+        local Menu = require("nui.menu")
+        local callback = ${luaAction}
+
+        local menu = Menu({
+          position = "50%",
+          size = {
+            width = 25,
+            height = 4,
+          },
+          border = {
+            style = "single", 
+            text = {
+              top = "[ Query which cloud? ]",
+              top_align = "center",
+            },
+          },
+          win_options = {
+            winhighlight = "Normal:Normal,FloatBorder:Normal",
+          },
+        }, {
+          lines = {
+            Menu.item("Current"),
+            Menu.separator("Specific", { char = "-", text_align = "right", }),
+            Menu.item("AzureCloud"),
+            Menu.item("AzureChinaCloud"),
+          },
+          max_width = 20,
+          keymap = {
+            focus_next = { "j", "<Down>", "<Tab>" },
+            focus_prev = { "k", "<Up>", "<S-Tab>" },
+            close = { "<Esc>", "<C-c>" },
+            submit = { "<CR>", "<Space>" },
+          },
+          on_submit = callback,
+        })
+
+        menu:mount()
+      end
+    '';
+  };
+
   mkPopupShellOutputKeymap = key: commandList: desc: {
     inherit key;
     lua = true;
@@ -133,6 +180,40 @@ in
     { mode = "n"; key = "<leader>t"; action = "<cmd>Trouble<CR>"; }
     { mode = "n"; key = "<leader>-"; action = "<cmd>Oil<CR>"; }
     { mode = "n"; key = "<leader>g"; action = "<cmd>LazyGit<CR>"; }
+
+    (mkMenuKeymap "n" "<leader>zg" "Azure Resource Graph query with current buffer" /* lua */ ''
+      function(item)
+        local cloud_name = item.text
+        local Job = require("plenary.job")
+        local buf_text = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
+
+        local tempname = os.tmpname()
+        local tempfile = io.open(tempname, "w")
+        tempfile:write(buf_text)
+        tempfile:close()
+
+        local complete_result = {}
+
+        local set_result = function()
+          if type(ArmGraphResultBuf) == "nil" then 
+            ArmGraphResultBuf = vim.api.nvim_create_buf(true, true)
+            vim.api.nvim_buf_set_name(ArmGraphResultBuf, "graph results")
+            vim.api.nvim_set_option_value("filetype", "json", { buf = ArmGraphResultBuf })
+            vim.api.nvim_command(string.format("vsplit | b %d", ArmGraphResultBuf))
+          end
+
+          vim.api.nvim_buf_set_lines(ArmGraphResultBuf, 0, -1, true, complete_result)
+        end
+
+        Job:new({
+          command = "/home/jtaylor/scratch/hacking/run_graph_query.bash",
+          args = { cloud_name, tempname },
+          on_stderr = function(_, data) vim.notify(data) end,
+          on_stdout = function(_, data) table.insert(complete_result, data) end,
+          on_exit = vim.schedule_wrap(set_result),
+        }):start()
+      end
+    '')
   ];
 
   programs.nixvim.keymapsOnEvents = {

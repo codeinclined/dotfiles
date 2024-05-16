@@ -14,13 +14,19 @@
       zsh-vi-mode
       wezterm.terminfo
       pass
-      azure-cli
+      (azure-cli.override {
+        withExtensions = [
+          azure-cli.extensions.resource-graph
+          azure-cli.extensions.ad
+          azure-cli.extensions.azure-devops
+        ];
+      })
       bat
       eza
       fzf
       ripgrep
       zoxide
-      neovim-nightly
+      neovim
     ];
 
     variables = {

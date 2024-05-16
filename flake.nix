@@ -13,7 +13,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -42,11 +41,7 @@
         inherit inputs system modulePath;
       };
 
-      systemOverlays = _: {
-        nixpkgs.overlays = [
-          inputs.neovim-nightly-overlay.overlay
-        ];
-      };
+      systemOverlays = _: { };
 
       homeOverlays = systemOverlays;
     in

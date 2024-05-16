@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 {
   programs.nixvim.opts = {
@@ -12,8 +12,8 @@
     signcolumn = "yes";
     breakindent = true;
 
-    # list = true;
-    # listchars = "trail:·,nbsp:󱁐";
+    splitright = true;
+    splitbelow = true;
   };
 
   programs.nixvim.globals = {

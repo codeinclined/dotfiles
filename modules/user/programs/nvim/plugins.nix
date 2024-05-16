@@ -2,10 +2,10 @@
 
 {
   programs.nixvim = {
-    extraPlugins = with pkgs.vimPlugins; [
+    extraPlugins = (with pkgs.vimPlugins; [
       actions-preview-nvim
       lazygit-nvim
-    ] ++ [
+    ]) ++ [
       (pkgs.vimUtils.buildVimPlugin {
         name = "nvim-material-icon";
         src = pkgs.fetchFromGitHub {
@@ -18,6 +18,12 @@
     ];
 
     extraConfigLua = /* lua */ ''
+      vim.filetype.add({
+        extension = {
+          kusto = 'kusto',
+        },
+      })
+
       require("actions-preview").setup {
         telescope = {
           sorting_strategy = "ascending",
@@ -64,7 +70,6 @@
       lualine.enable = true;
       gitsigns.enable = true;
       telescope.enable = true;
-      oil.enable = true;
       dap.enable = true;
       fidget.enable = true;
       sleuth.enable = true;
@@ -76,6 +81,22 @@
       cmp-rg.enable = true;
       rainbow-delimiters.enable = true;
       undotree.enable = true;
+      lspkind.enable = true;
+
+      markdown-preview = {
+        enable = true;
+        settings = {
+          browser = "wslview";
+        };
+      };
+
+      oil = {
+        enable = true;
+        settings = {
+          experimental_watch_for_changes = true;
+          skip_confirm_for_simple_edits = true;
+        };
+      };
 
       luasnip = {
         enable = true;
