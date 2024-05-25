@@ -30,6 +30,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
@@ -90,7 +96,8 @@
           modules = [
             homeOverlays
             inputs.nixvim.homeManagerModules.nixvim
-            ./hosts/nixos-wsl-venus/users/jtaylor
+            inputs.plasma-manager.homeManagerModules.plasma-manager
+            ./hosts/nixos-venus/users/jtaylor
           ];
         };
 

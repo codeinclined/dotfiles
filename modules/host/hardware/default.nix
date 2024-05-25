@@ -1,38 +1,73 @@
 { config, lib, pkgs, modulesPath, ... }:
 
+let
+  mountDevices = {
+    nix = "/dev/disk/by-label/NIX";
+    nixBoot = "/dev/disk/by-label/NIXBOOT";
+    storage = "/dev/disk/by-label/STORAGE";
+  };
+in
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
-    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" ];
-    initrd.kernelModules = [ ];
+    initrd = {
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" ];
+      kernelModules = [ ];
+    };
+
     kernelModules = [ "kvm-amd" ];
+    kernelParams = [ "module_blacklist=amdgpu" "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
     extraModulePackages = [ ];
     supportedFilesystems = [ "ntfs" ];
   };
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-label/NIXROOT";
+      device = mountDevices.nix;
       fsType = "btrfs";
-      options = [ "compress=lzo" ];
+      options = [ "subvol=root" "compress=lzo" "noatime" ];
     };
 
-    "/mnt/win_c" = {
-      device = "/dev/disk/by-uuid/0EA8EDFDA8EDE2E7";
-      fsType = "ntfs-3g";
-      options = [ "rw" "users" "nofail" ];
+    "/home" = {
+      device = mountDevices.nix;
+      fsType = "btrfs";
+      options = [ "subvol=home" "compress=lzo" "noatime" ];
+    };
+
+    "/nix" = {
+      device = mountDevices.nix;
+      fsType = "btrfs";
+      options = [ "subvol=nix" "compress=lzo" "noatime" ];
+    };
+
+    "/swap" = {
+      device = mountDevices.nix;
+      fsType = "btrfs";
+      options = [ "subvol=swap" "noatime" ];
     };
 
     "/boot" = {
-      device = "/dev/disk/by-label/NIXBOOT";
+      device = mountDevices.nixBoot;
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+    "/mnt/storage" = {
+      device = mountDevices.storage;
+      fsType = "btrfs";
+      options = [ "subvol=storage" "compress=lzo" "noatime" ];
+    };
+
+    "/mnt/snapshots" = {
+      device = mountDevices.storage;
+      fsType = "btrfs";
+      options = [ "subvol=snapshots" "compress=zstd" "noatime" ];
     };
   };
 
   swapDevices = [{
-    device = "/var/lib/swapfile";
+    device = "/swap/swapfile";
     size = 2048;
     randomEncryption.enable = true;
   }];

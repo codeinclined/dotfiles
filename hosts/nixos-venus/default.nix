@@ -1,7 +1,7 @@
 { config, lib, modulePath, pkgs, ... }:
 
 {
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 
   imports = lib.lists.forEach [
     /nix
@@ -26,6 +26,9 @@
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "drdos8x16";
+  };
 
   hardware.opengl = {
     enable = true;
@@ -89,7 +92,7 @@
 
   hardware = {
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       modesetting.enable = true;
       powerManagement.enable = true;
