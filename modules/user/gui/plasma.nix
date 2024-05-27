@@ -3,16 +3,19 @@
 let
   mkSpacerEx = length: expanding: {
     name = "org.kde.plasma.panelspacer";
-    config.General = { inherit length expanding; };
+    config.General = {
+      length = builtins.toString length;
+      expanding = builtins.toString expanding;
+    };
   };
 
-  mkSpacer = length: (mkSpacerEx length (length > 0));
+  mkSpacer = length: (mkSpacerEx length (if length < 1 then "true" else "false"));
 
   kickoff = {
     name = "org.kde.plasma.kickoff";
     config.General = {
       icon = "nix-snowflake";
-      primaryActions = 3;
+      primaryActions = "3";
     };
   };
 
@@ -25,7 +28,7 @@ let
         "preferred://filemanager"
         "preferred://browser"
         "applications:steam.desktop"
-        "applications:xivlauncher.desktop"
+        "applications:xivlauncher-gamemode.desktop"
       ];
     };
   };
@@ -41,12 +44,17 @@ in
 
     overrideConfig = true;
 
+    configFile = {
+      kwalletrc.Wallet.Enabled = false;
+    };
+
     workspace = {
       clickItemTo = "select";
-      theme = "breeze-dask";
-      colorScheme = "BreezeDark";
+      theme = "breeze-dark";
+      colorScheme = "CatppuccinFrappeBlue";
       lookAndFeel = "org.kde.breezedark.desktop";
       iconTheme = "breeze-dark";
+      cursorTheme = "Catppuccin-Mocha-Dark-Cursors";
     };
 
     fonts = {

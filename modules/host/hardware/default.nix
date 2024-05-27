@@ -1,11 +1,20 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 
+# ni
 let
   mountDevices = {
     nix = "/dev/disk/by-label/NIX";
     nixBoot = "/dev/disk/by-label/NIXBOOT";
     storage = "/dev/disk/by-label/STORAGE";
   };
+
+  nfsShares = hostAlias: addr: shares: lib.attrsets.mapAttrs'
+    (name: value: lib.attrsets.nameValuePair "/mnt/${hostAlias}/${name}" {
+      device = "${addr}:/${value}";
+      fsType = "nfs";
+      options = [ "noatime" ];
+    })
+    shares;
 in
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
@@ -19,7 +28,7 @@ in
     kernelModules = [ "kvm-amd" ];
     kernelParams = [ "module_blacklist=amdgpu" "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
     extraModulePackages = [ ];
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [ "ntfs" "nfs" ];
   };
 
   fileSystems = {
@@ -64,7 +73,15 @@ in
       fsType = "btrfs";
       options = [ "subvol=snapshots" "compress=zstd" "noatime" ];
     };
-  };
+  } // (nfsShares "luna" "192.168.50.68" {
+    JoshFiles = "Josh Files";
+    JoshBackup = "Josh Backup";
+    RachelFiles = "Rachel Files";
+    RachelBackup = "Rachel Backup";
+    Container = "Container";
+    Multimedia = "Multimedia";
+    Public = "Public";
+  });
 
   swapDevices = [{
     device = "/swap/swapfile";
@@ -76,4 +93,6 @@ in
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.keyboard.zsa.enable = true;
 }

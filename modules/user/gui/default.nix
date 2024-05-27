@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./plasma.nix
+  ];
+
   options = {
     hm.gui.disable = lib.mkEnableOption (lib.mdDoc "disable gui support");
   };
@@ -11,6 +15,10 @@
       playerctl
       discord
       kdePackages.plasma-browser-integration
+
+      catppuccin-cursors.mochaDark
+      catppuccin-kde
+      catppuccin-gtk
     ];
 
     services = {
@@ -47,6 +55,8 @@
       extensions = [
         # Microsoft Autofill
         # { id = "fiedbfgcleddlbcmgdigjgdfcggjcion"; }
+        # Catppuccin Mocha
+        { id = "bkkmolkhemgaeaeggcmfbghljjjoofoh"; }
         # Bitwarden
         { id = "nngceckbapebfimnlniiiahkandclblb"; }
         # Dark Reader

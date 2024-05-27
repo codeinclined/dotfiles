@@ -21,6 +21,8 @@
       ripgrep
       zoxide
       neovim
+      nfs-utils
+      keymapp
 
       # TODO: MAKE THIS NOT INSTALLED IN WSL
       kdePackages.plasma-browser-integration
