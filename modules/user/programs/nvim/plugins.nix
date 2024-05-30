@@ -86,7 +86,7 @@
       markdown-preview = {
         enable = true;
         settings = {
-          browser = "wslview";
+          browser = "brave";
         };
       };
 
@@ -235,11 +235,13 @@
           code_actions = {
             refactoring.enable = true;
             statix.enable = true;
+            proselint.enable = true;
           };
 
           diagnostics = {
             revive.enable = true;
             statix.enable = true;
+            proselint.enable = true;
           };
 
           formatting = {
@@ -248,11 +250,10 @@
             golines.enable = true;
             nixpkgs_fmt.enable = true;
             hclfmt.enable = true;
+            # mdformat.enable = true;
           };
 
-          hover = {
-            dictionary.enable = true;
-          };
+          hover = { };
         };
       };
 

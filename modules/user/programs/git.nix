@@ -25,10 +25,45 @@
 
   config.programs.lazygit = with config.hm.git; {
     enable = !disable && !lazygit.disable;
-    settings = with lazygit; {
+    settings = {
       gui = {
         nerdFontsVersion = "3";
         filterMode = "fuzzy";
+
+        theme = {
+          activeBorderColor = [
+            "#fab387"
+            "bold"
+          ];
+          inactiveBorderColor = [
+            "#a6adc8"
+          ];
+          optionsTextColor = [
+            "#89b4fa"
+          ];
+          selectedLineBgColor = [
+            "#313244"
+          ];
+          cherryPickedCommitBgColor = [
+            "#45475a"
+          ];
+          cherryPickedCommitFgColor = [
+            "#fab387"
+          ];
+          unstagedChangesColor = [
+            "#f38ba8"
+          ];
+          defaultFgColor = [
+            "#cdd6f4"
+          ];
+          searchingActiveBorderColor = [
+            "#f9e2af"
+          ];
+
+          authorColors = {
+            "*" = "#b4befe";
+          };
+        };
       };
 
       os = {
