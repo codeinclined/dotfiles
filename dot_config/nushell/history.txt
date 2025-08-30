@@ -1,0 +1,390 @@
+bash
+exit
+config nu
+which nvim
+nvim
+which nvim
+clear
+nvim
+exit
+EDITOR=nvim config nu
+nvim
+nvim .config/
+config nu
+exit
+config nu
+exit
+which nvim
+nvim
+clear
+exit
+EDITOR=nvim config nu
+nu --help
+exit
+nvim .config/
+clear
+which nvim
+alias nvim
+alias --help
+describe --help
+help alias
+scope aliases
+scope --help
+scope aliases --help
+scope aliases
+clear
+config nu
+exit
+$env | describe
+mut a = {'foo': 'bar'}
+a
+$a
+$a | update { 'baz': 'bat' }
+exit
+configNu
+config nu
+clear
+$env
+config --help
+config env
+clear
+$nu.user-autoload-dirs
+clear
+nvim $nu.user-autoload-dirs
+nvim $nu.user-autoload-dirs...
+nvim ($nu.user-autoload-dirs...)
+nvim $nu.user-autoload-dirs
+nvim ...$nu.user-autoload-dirs
+mkdir -p ...$nu.user-autoload-dirs
+mkdir ...$nu.user-autoload-dirs
+clear
+nvim
+exit
+config nu
+exit
+config nu
+exit
+clear
+exit
+z
+clear
+z src
+z zig/monkey/
+z
+z zig
+z
+clear
+sudo pacman -Ss carapace
+sudo paru -Ss carapace
+sudo paru -S carapace-bin
+paru -S carapace-bin
+clear
+exit
+$env
+help save
+ps
+ls .local
+ls .local/share
+ls .cache
+ls .cache/carapace/
+path --help
+$nu
+ls $nu.cache-dir
+carapace --help
+help let
+$env
+echo $env.XDG_CACHE_HOME
+echo $env.XDG_CACHE_HOME?
+echo $env.XDG_CACHE_HOME? | default { $nu.home-path | path join ".cache" }
+path join 'foo' 'bar'
+nvim ...$nu.user-autoload-dirs
+$nu.plugin-path
+cd .config/nushell/
+ls
+cd
+echo $env.NU_PLUGIN_DIRS
+echo $env.NU_LIB_DIRS
+clear
+exit
+exit
+exit
+nvim ...$nu.user-autoload-dirs
+$nu.data-dir
+ls $nu.data-dir
+cd .local/share/nushell/
+ls
+cd vendor
+ls
+cd autoload/
+ls
+cat carapace.nu 
+cd ../..
+ls
+mkdir modules
+cd modules/
+clear
+$nu.config-path
+$nu.temp-path
+mkdir xdg
+def foo [] { "hi" }
+$env.hi? | default foo
+$env.hi? | default (foo)
+$env.hi? | default {foo}
+$nu
+$nu.pid | describe
+$nu.pid | string
+$nu.pid | tostring
+$nu.pid | into string
+$nu.pid | into string | describe
+$nu
+uid
+whoami
+which whoami
+"hello" | path join
+using xdg
+$env.NU_LIB_DIRS
+ls ...$env.NU_LIB_DIRS
+using xdg
+use xdg
+xdg home
+xdg home cache
+xdg home pictures 
+xdg home bin
+xdg home runtime
+xdg home cache starship
+use xdg
+xdg home cache starship
+ls (xdg home cache starship)
+xdg
+xdg home cache starship
+clear
+rm .l
+rm .local/share/nushell/vendor/autoload/starship.nu
+exit
+nvim xdg/mod.nu
+exit
+exit
+nvim .cache/carapace/
+carapace _carapace nushell
+nvim
+exit
+nvim
+exit
+exit
+z monkey
+z
+clear
+ls
+nvim ...$nu.user-autoload-dirs
+exit
+$env.config
+$env.config.ls
+nvim ...$nu.user-autoload-dirs
+exit
+clear
+arst
+git 
+clear
+git version 
+$env.config
+echo (<\n>arsiten<\n>arst<\n>)
+clear
+(<\n>)
+clear
+nvim .config/starship.toml 
+clear
+exit
+clear
+ls
+exit
+echo hello world!
+clear
+exit
+clear
+echo hello world!
+exit
+ls
+echo hello world!
+clear
+echo hello world!
+aryo-suetn
+echo hello world!
+clear
+exit
+exit
+exit
+help
+arst
+clear
+exit
+echo hello world!
+exit
+echo hello world!
+exit
+help ansi
+ansi -l
+ansi -l | explore
+ansi -l
+clear
+echo hello world!
+exit
+echo hello world!
+exit
+echo hello world!
+exit
+echo hello world!
+clear
+exit
+clear
+ls
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+echt hello world!
+exit
+exit
+exit
+starship module character
+echo hello world!
+exit
+echo hello world!
+exit
+echo hello world!
+exit
+echo hello world!
+arst
+oayiruestn
+arst
+time
+date
+date now
+date --help
+date now --help
+date now | debug
+date now | format date "%+"
+date now | format date "%H%M%S"
+date now | format date "T%H%M%S"
+date now | format date "T%H:%M:%S"
+date now | format date "%H:%M:%S"
+format date --help
+format date -l
+date now | format date "%T"
+echo hello world!
+arst
+echo hello world!
+ech
+arst
+echo hi
+aroysiuten
+clear
+ls
+echo hi
+clear
+exit
+echo hi
+echo hello world!
+clear
+ls
+hell
+clear
+echo hello world!
+exit
+nvim ...$nu.user-autoload-dirs
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+nvim ...$nu.user-autoload-dirs
+exit
+ansi --help
+ansi -l
+nvim ...$nu.user-autoload-dirs
+exit
+echo hello world!
+arst
+clear
+arsoiten
+clear
+false
+true
+^false
+^true
+^false
+59
+59 * 6
+clear
+tar
+which tar
+clear
+exit
+nvim ...$nu.user-autoload-dirs
+exit
+sudo pacman -S chezmoi
+sudo pacman -Syu chezmoi
+clear
+chezmoi --help
+chezmoi init
+chezmoi add .config/nushell/
+chezmoi add .editorconfig
+exit
+sudo pacman -Ss inshellisense
+paru -Ss inshellisense
+nvim ...$nu.user-autoload-dirs
+config nu
+exit
+npm i -g @microsoft/inshellisense
+sudo paru -S npm-inshellisense
+sudo paru -Ss inshellisense
+sudo paru -S nodejs-inshellisense
+paru -S nodejs-inshellisense
+clear
+npm i -g @microsoft/inshellisense
+nvim C:\Users\Josh\scoop\persist\nodejs\cache\_logs\2025-08-30T21_05_04_102Z-debug-0.log
+npm i -g @microsoft/inshellisense
+sudo pacman -S npm
+clear
+npm i -g @microsoft/inshellisense
+nvim /home/jtaylor/.npm/_logs/2025-08-30T21_12_39_913Z-debug-0.log
+sudo pacman -Ss nodejs
+sudo pacman -Ss nodejs-lts
+sudo pacman -S nodejs-lts-jod
+npm i -g @microsoft/inshellisense
+sudo npm i -g @microsoft/inshellisense
+clear
+exit
+clear
+nvim .config
+exit
+cd .cache/carapace/
+ls
+nvim bridges-inshellisense.json 
+nvim bridges-bash.json 
+clear
+cd
+clear
+ls
+ls -lah
+ls -l
+ls -a
+chezmoi add .inputrc
+ls .local
+ls .local/share/
+ls .local/share/nushell/
+clear
+cd .config
+ls
+ls carapace/
+chezmoi add carapace
+ls
