@@ -1,6 +1,7 @@
 -- require("plugins.themes.tokyonight")
 -- require("plugins.themes.everforest")
-require("plugins.themes.evergarden")
+-- require("plugins.themes.evergarden")
+require("plugins.themes.catppuccin")
 require("plugins.mini")
 require("plugins.oil")
 require("plugins.treesitter")

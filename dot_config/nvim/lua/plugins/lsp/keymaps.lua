@@ -4,3 +4,4 @@ vim.keymap.set("n", "<leader>dp", function() vim.diagnostic.jump({ count = -1, f
 vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, { desc = "LSP, rename", })
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "LSP, format", })
 
+vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP, code action", })

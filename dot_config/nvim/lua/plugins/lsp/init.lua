@@ -4,7 +4,7 @@ require("plugins.lsp.keymaps")
 vim.lsp.enable("zls")
 vim.lsp.enable("bashls")
 vim.lsp.enable("gopls")
-vim.lsp.enable("nu")
+vim.lsp.enable("nushell")
 
 require("plugins.lsp.pylsp")
 vim.lsp.enable("pylsp")
@@ -14,3 +14,6 @@ vim.lsp.enable("yamlls")
 
 require("plugins.lsp.lua_ls")
 vim.lsp.enable("lua_ls")
+
+require("plugins.lsp.rust_analyzer")
+vim.lsp.enable("rust_analyzer")
