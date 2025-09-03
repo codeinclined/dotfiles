@@ -1,12 +1,12 @@
 [user]
-	name = Josh Taylor
-	email = {{
+    name = Josh Taylor
+    email = {{
         eq .chezmoi.username "vtaylj6"
         | ternary "josh.taylor@pearson.com" "taylor.joshua88@gmail.com"
     }}
 [credential]
     helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
-	useHttpPath = 1
+    useHttpPath = 1
 [core]
     pager = delta
 [init]
@@ -22,4 +22,4 @@
 [merge]
     conflictStyle = zdiff3
 [alias]
-	lazy = !lazygit
+    lazy = !lazygit
