@@ -1,1 +1,1 @@
-$env.NU_LIB_DIRS = [($nu.data-dir | path join "modules")]
+$env.NU_LIB_DIRS = [($nu.default-config-dir | path join "modules")]
