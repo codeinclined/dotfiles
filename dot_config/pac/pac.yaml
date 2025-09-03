@@ -35,3 +35,10 @@ pkgs:
 - tree-sitter-cli
 - yaml-language-server
 - zoxide
+- azure-cli
+- azure-kubelogin
+- bind
+- git-delta
+- k9s
+- kubectl
+- xdg-utils

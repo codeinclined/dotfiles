@@ -51,5 +51,5 @@ export def sync [--noconfirm (-y)] {
         sudo pacman ...$extra_opts -S paru
     }
 
-    sudo paru ...$extra_opts --needed -S ...($pacfile.pkgs)
+    paru ...$extra_opts --needed -S ...($pacfile.pkgs)
 }
