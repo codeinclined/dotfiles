@@ -2,7 +2,7 @@
 
 add_newline = true
 format = """
-$os$hostname $username
+$os$hostname $username $azure
 $git_branch$git_status$git_state$directory
 $status
 """
@@ -10,6 +10,12 @@ $status
 [character]
 success_symbol = '[󰘧](bold green)'
 error_symbol = '[󰘧](bold red)'
+
+[azure]
+disabled = false
+format = "[$symbol($subscription)]($style) "
+symbol = "󰠅 "
+style = "blue bold"
 
 [status]
 format = '[$symbol\($status\)]($style) '

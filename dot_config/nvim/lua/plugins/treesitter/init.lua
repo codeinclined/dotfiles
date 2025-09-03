@@ -3,6 +3,8 @@ vim.pack.add({{
   version = "main",
 }})
 
+local ts = require("nvim-treesitter")
+
 local ts_update_group = vim.api.nvim_create_augroup("TreesitterUpdate", { clear = true, })
 
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -15,6 +17,11 @@ vim.api.nvim_create_autocmd("PackChanged", {
   end,
 })
 
-require("nvim-treesitter").install(
+ts.install(
   require("plugins.treesitter.parsers")
 ):wait(300000)
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = ts.get_installed(),
+    callback = function() vim.treesitter.start() end,
+})

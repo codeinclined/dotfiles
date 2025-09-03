@@ -1,0 +1,4 @@
+--theme="Catppuccin Macchiato"
+--italic-text=always
+--style="auto,-numbers,-changes"
+--set-terminal-title
