@@ -9,6 +9,11 @@
 	useHttpPath = 1
 [core]
     pager = delta
+[init]
+    defaultBranch = {{
+        eq .chezmoi.username "vtaylj6"
+        | ternary "master" "main"
+    }}
 [interactive]
     diffFilter = delta --color-only
 [delta]
