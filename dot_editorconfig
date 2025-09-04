@@ -7,7 +7,7 @@ indent_style = space
 indent_size = 4
 charset = utf-8
 
-[{Makefile,*.go,go.mod,go.work}]
+[{Makefile,Justfile,*.go,go.mod,go.work}]
 indent_style = tab
 
 [{*.yaml,*.yml,*.json,*.toml,*.ini,*.kdl,*.conf}]
