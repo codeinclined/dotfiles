@@ -1,0 +1,18 @@
+xdg:
+  dirs:
+    XDG_DATA_HOME: ~/.local/share
+    XDG_CONFIG_HOME: ~/.config
+    XDG_STATE_HOME: ~/.local/state
+    XDG_CACHE_HOME: ~/.cache
+    XDG_RUNTIME_DIR: /run/user/$(id -u)
+    XDG_DATA_DIRS: /usr/local/share/:/usr/share/
+    XDG_CONFIG_DIRS: /etc/xdg
+    XDG_DESKTOP_DIR: ~/Desktop
+    XDG_DOWNLOAD_DIR: ~/Downloads
+    XDG_DOCUMENTS_DIR: ~/Documents
+    XDG_MUSIC_DIR: ~/Music
+    XDG_PICTURES_DIR: ~/Pictures
+    XDG_VIDEOS_DIR: ~/Videos
+    XDG_TEMPLATES_DIR: ~/Templates
+    XDG_PUBLICSHARE_DIR: ~/Public
+

@@ -56,7 +56,6 @@ return {
   "scss",
   "sql",
   "ssh_config",
-  "templ",
   "terraform",
   "toml",
   "tsv",

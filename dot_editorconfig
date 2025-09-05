@@ -4,11 +4,11 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 indent_style = space
-indent_size = 4
+indent_size = 2
 charset = utf-8
 
 [{Makefile,Justfile,*.go,go.mod,go.work}]
 indent_style = tab
 
-[{*.yaml,*.yml,*.json,*.toml,*.ini,*.kdl,*.conf}]
-indent_size = 2
+[{*.rs,*.zig,*.py}]
+indent_size = 4

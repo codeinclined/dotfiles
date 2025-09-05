@@ -1,44 +1,85 @@
 pkgs:
-- base
-- base-devel
-- bash-completion
-- bash-language-server
-- bat
-- carapace-bin
-- chaotic-keyring
-- chaotic-mirrorlist
-- chezmoi
-- expac
-- fzf
-- gibo-bin
-- git
-- go
-- gopls
-- lazygit
-- less
-- lldb
-- lua-language-server
-- mandoc
-- neofetch-git
-- neovim-nightly-bin
-- nodejs-lts-jod
-- npm
-- nushell
-- pacman-contrib
-- paru
-- python
-- python-pip
-- rust-analyzer
-- rustup
-- starship
-- sudo
-- tree-sitter-cli
-- yaml-language-server
-- zoxide
-- azure-cli
-- azure-kubelogin
-- bind
-- git-delta
-- k9s
-- kubectl
-- xdg-utils
+- name: azure-cli
+  ver: 2.76.0-1
+- name: azure-kubelogin
+  ver: 0.2.10-1
+- name: base
+  ver: 3-2
+- name: base-devel
+  ver: 1-2
+- name: bash-completion
+  ver: 2.16.0-1
+- name: bash-language-server
+  ver: 5.6.0-1
+- name: bat
+  ver: 0.25.0-4
+- name: bind
+  ver: 9.20.12-1
+- name: carapace-bin
+  ver: 1.4.1-1
+- name: chaotic-keyring
+  ver: 20250614-1
+- name: chaotic-mirrorlist
+  ver: 20240724-3
+- name: chezmoi
+  ver: 2.65.0-1
+- name: fzf
+  ver: 0.65.2-1
+- name: gibo-bin
+  ver: 3.0.14-1
+- name: git
+  ver: 2.51.0-1
+- name: git-delta
+  ver: 0.18.2-4
+- name: go
+  ver: 2:1.25.1-2
+- name: gopls
+  ver: 0.20.0-3
+- name: k9s
+  ver: 0.50.9-1
+- name: kubectl
+  ver: 1.33.4-1
+- name: lazygit
+  ver: 0.54.2-1
+- name: less
+  ver: 1:679-1
+- name: lldb
+  ver: 20.1.8-1
+- name: lua-language-server
+  ver: 3.15.0-1
+- name: mandoc
+  ver: 1.14.6-5
+- name: neofetch-git
+  ver: 7.1.0.r166.gccd5d9f5-1.1
+- name: neovim-git
+  ver: 0.12.0.r1147.g069be91106-1
+- name: nodejs-lts-jod
+  ver: 22.19.0-1
+- name: npm
+  ver: 11.6.0-1
+- name: nushell
+  ver: 0.107.0-1
+- name: pacman-contrib
+  ver: 1.13.0-1
+- name: paru
+  ver: 2.1.0-1
+- name: python-pip
+  ver: 25.2-1
+- name: rust-analyzer
+  ver: 20250825-1
+- name: rustup
+  ver: 1.28.2-3
+- name: starship
+  ver: 1.23.0-1
+- name: sudo
+  ver: 1.9.17.p1-1
+- name: tenv-bin
+  ver: 4.7.21-1
+- name: tree-sitter-cli
+  ver: 0.25.8-1
+- name: xdg-utils
+  ver: 1.2.1-1
+- name: yaml-language-server
+  ver: 1.19.0-1
+- name: zoxide
+  ver: 0.9.8-2
