@@ -83,3 +83,9 @@ pkgs:
   ver: 1.19.0-1
 - name: zoxide
   ver: 0.9.8-2
+- name: just
+  ver: 1.42.4-1
+- name: lld
+  ver: 20.1.8-1
+- name: python
+  ver: 3.13.7-1
