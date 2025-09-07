@@ -5,6 +5,7 @@ vim.lsp.enable("zls")
 vim.lsp.enable("bashls")
 vim.lsp.enable("gopls")
 vim.lsp.enable("nushell")
+vim.lsp.enable("jsonls")
 
 require("plugins.lsp.pylsp")
 vim.lsp.enable("pylsp")
