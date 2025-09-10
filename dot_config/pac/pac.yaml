@@ -22,7 +22,7 @@ pkgs:
 - name: chaotic-mirrorlist
   ver: 20240724-3
 - name: chezmoi
-  ver: 2.65.0-1
+  ver: 2.65.1-1
 - name: fzf
   ver: 0.65.2-1
 - name: gibo-bin
@@ -52,7 +52,7 @@ pkgs:
 - name: neofetch-git
   ver: 7.1.0.r166.gccd5d9f5-1.1
 - name: neovim-git
-  ver: 0.12.0.r1172.g1cb1cfead0-1
+  ver: 0.12.0.r1187.ge084a99040-1
 - name: nodejs-lts-jod
   ver: 22.19.0-1
 - name: npm
@@ -76,7 +76,7 @@ pkgs:
 - name: tenv-bin
   ver: 4.7.21-1
 - name: tree-sitter-cli
-  ver: 0.25.8-1
+  ver: 0.25.9-1
 - name: xdg-utils
   ver: 1.2.1-1
 - name: yaml-language-server
