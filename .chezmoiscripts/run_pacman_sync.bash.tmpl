@@ -1,0 +1,141 @@
+#!/usr/bin/bash
+
+{{ $localPkgs := output "pacman" "-Qeq" | trim | splitList "\n" -}}
+{{- $matches := list -}}
+{{- $missing := list -}}
+{{- $new := list -}}
+
+{{- range $localPkgs -}}
+  {{- if $.pacman.pkgs | has . -}}
+    {{- $matches = append $matches . -}}
+  {{- else -}}
+    {{- $new = append $new . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- range .pacman.pkgs -}}
+  {{- if $localPkgs | has . | not -}}
+    {{- $missing = append $missing . -}}
+  {{- end -}}
+{{- end -}}
+
+function main {
+  local statefile="$HOME/.local/share/chezmoi/.chezmoidata/pacman-pkgs.yaml"
+
+  local matches=(
+    {{ $matches | join "\n  " }}
+  )
+
+  local missing=(
+    {{ $missing | join "\n  " }}
+  )
+
+  local new=(
+    {{ $new | join "\n  " }}
+  )
+
+  if [[ ${#missing} -gt 0 ]]; then
+    echo
+    echo Some packages were present in Chezmoi data but not installed locally.
+    echo Please choose an action to perform on each package:
+    echo
+    echo 'r : remove package from Chezmoi data'
+    echo 'R : remove remaining packages from Chezmoi data'
+    echo 'i : install'
+    echo 'I : install remaining packages'
+    echo 's : skip (do nothing)'
+    echo 'S : skip remaining packages (do nothing)'
+    echo
+
+    local -a to_install
+    local do_for_all=""
+
+    for pkg in "${missing[@]}"; do
+      local choice=$do_for_all
+
+      until [[ "$choice" =~ [rRiIsS] ]]; do
+        read -p "$pkg => " -n 1 choice
+        echo
+      done
+
+      case "$choice" in
+        R) do_for_all='r' ;&
+        r)
+          printf 'Removing %s from %s\n' "$pkg" "$statefile"
+          sed -i '/pkgs:/,/- '"$pkg"'$/{/- '"$pkg"'$/d}' "$statefile"
+          ;;
+
+        I) do_for_all='i' ;&
+        i)
+          printf 'Marking %s for installation\n' "$pkg"
+          to_install+="$pkg"
+          ;;
+
+        S) do_for_all='s' ;&
+        s)
+          printf 'Ignoring %s\n' "$pkg"
+          ;;
+      esac
+    done
+
+    echo
+
+    if [[ ${#to_install} -gt 0 ]]; then
+      paru -Sy --needed --skipreview "${to_install[@]}"
+      echo
+    fi
+  fi
+
+
+  if [[ ${#new} -gt 0 ]]; then
+    echo
+    echo Some packages were present locally but not in Chezmoi data.
+    echo Please choose an action to perform on each package:
+    echo
+    echo 'a : add to Chezmoi data'
+    echo 'A : add remaining packages to Chezmoi data'
+    echo 'r : remove package locally'
+    echo 'R : remove remaining packages locally'
+    echo 's : skip (do nothing)'
+    echo 'S : skip remaining packages (do nothing)'
+    echo
+
+    local -a to_remove
+    local do_for_all=""
+
+    for pkg in "${new[@]}"; do
+      local choice=$do_for_all
+
+      until [[ "$choice" =~ [aArRsS] ]]; do
+        read -p "$pkg => " -n 1 choice
+        echo
+      done
+
+      case "$choice" in
+        A) do_for_all='a' ;&
+        a)
+          printf 'Adding %s to %s\n' "$pkg" "$statefile"
+          sed -Ei 's/^(\s+)(pkgs:)$/\1\2\n\1- '"$pkg"'/' "$statefile"
+          ;;
+
+        R) do_for_all='r' ;&
+        r)
+          printf 'Marking %s for removal\n' "$pkg"
+          to_remove+="$pkg"
+          ;;
+
+        S) do_for_all='s' ;&
+        s)
+          printf 'Ignoring %s\n' "$pkg"
+          ;;
+      esac
+    done
+
+    if [[ ${#to_remove} -gt 0 ]]; then
+      paru -Rcsn "${to_remove[@]}"
+      echo
+    fi
+  fi
+}
+
+main "$@"
