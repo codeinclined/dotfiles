@@ -1,5 +1,7 @@
 pacman:
   pkgs:
+  - yq
+  - imagemagick
   - shellcheck
   - jq
   - azure-cli

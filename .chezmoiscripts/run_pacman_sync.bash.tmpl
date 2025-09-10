@@ -39,10 +39,10 @@ function main {
     echo Some packages were present in Chezmoi data but not installed locally.
     echo Please choose an action to perform on each package:
     echo
-    echo 'r : remove package from Chezmoi data'
-    echo 'R : remove remaining packages from Chezmoi data'
     echo 'i : install'
     echo 'I : install remaining packages'
+    echo 'r : remove package from Chezmoi data'
+    echo 'R : remove remaining packages from Chezmoi data'
     echo 's : skip (do nothing)'
     echo 'S : skip remaining packages (do nothing)'
     echo
@@ -68,7 +68,7 @@ function main {
         I) do_for_all='i' ;&
         i)
           printf 'Marking %s for installation\n' "$pkg"
-          to_install+="$pkg"
+          to_install+=("$pkg")
           ;;
 
         S) do_for_all='s' ;&
@@ -121,7 +121,7 @@ function main {
         R) do_for_all='r' ;&
         r)
           printf 'Marking %s for removal\n' "$pkg"
-          to_remove+="$pkg"
+          to_remove+=("$pkg")
           ;;
 
         S) do_for_all='s' ;&
