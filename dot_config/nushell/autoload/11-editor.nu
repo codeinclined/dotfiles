@@ -1,4 +1,4 @@
-alias nvim = env TERM='wezterm' nvim
+# alias nvim = env TERM='wezterm' nvim
 
 $env.EDITOR = 'nvim'
 $env.VISUAL = $env.EDITOR

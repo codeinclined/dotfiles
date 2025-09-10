@@ -1,6 +1,6 @@
 pkgs:
 - name: azure-cli
-  ver: 2.76.0-1
+  ver: 2.77.0-1
 - name: azure-kubelogin
   ver: 0.2.10-1
 - name: base
@@ -40,7 +40,7 @@ pkgs:
 - name: kubectl
   ver: 1.33.4-1
 - name: lazygit
-  ver: 0.54.2-1
+  ver: 0.55.0-1
 - name: less
   ver: 1:679-1
 - name: lldb
@@ -52,7 +52,7 @@ pkgs:
 - name: neofetch-git
   ver: 7.1.0.r166.gccd5d9f5-1.1
 - name: neovim-git
-  ver: 0.12.0.r1147.g069be91106-1
+  ver: 0.12.0.r1172.g1cb1cfead0-1
 - name: nodejs-lts-jod
   ver: 22.19.0-1
 - name: npm
@@ -89,3 +89,5 @@ pkgs:
   ver: 20.1.8-1
 - name: python
   ver: 3.13.7-1
+- name: devtools
+  ver: 1:1.4.0-3
