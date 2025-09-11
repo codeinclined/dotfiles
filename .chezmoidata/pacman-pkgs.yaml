@@ -1,5 +1,6 @@
 pacman:
   pkgs:
+  - github-cli
   - yq
   - imagemagick
   - shellcheck

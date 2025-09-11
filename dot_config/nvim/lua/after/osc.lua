@@ -3,6 +3,10 @@ local micons = require("mini.icons")
 ---@param path string
 ---@return string
 local shorten_path = function(path)
+  if path == nil then
+    return ""
+  end
+
   local home_path = vim.uv.os_homedir()
   if string.sub(path, 1, #home_path) == home_path then
     return "~" .. string.sub(path, #home_path + 1)
