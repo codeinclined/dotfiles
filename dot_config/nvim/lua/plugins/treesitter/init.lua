@@ -41,6 +41,11 @@ vim.filetype.add({
   extension = {
     tmpl = "gotmpl",
   },
+  pattern = {
+    [".*/templates/.*%.tpl"] = "helm",
+    [".*/templates/.*%.ya?ml"] = "helm",
+    ["helmfile.*%.ya?ml"] = "helm",
+  },
 })
 
 vim.api.nvim_create_autocmd('FileType', {

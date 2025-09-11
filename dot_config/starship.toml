@@ -2,7 +2,7 @@
 
 add_newline = true
 format = """
-$os$hostname $username $azure $kubernetes
+$os$hostname$username$azure$kubernetes
 $git_branch$git_status$git_state$directory
 $status
 """
@@ -10,7 +10,8 @@ $status
 [kubernetes]
 disabled = false
 format = '[$symbol$context( \($namespace\))]($style) '
-symbol = '󰠳 '
+symbol = ' 󰠳 '
+style = '#326CE5 bold'
 
 [character]
 success_symbol = '[󰘧](bold green)'
@@ -19,8 +20,8 @@ error_symbol = '[󰘧](bold red)'
 [azure]
 disabled = false
 format = "[$symbol($subscription)]($style) "
-symbol = "󰠅 "
-style = "blue bold"
+symbol = " 󰠅 "
+style = "#008ad7 bold"
 
 [status]
 format = '[$symbol\($status\)]($style) '
@@ -39,17 +40,19 @@ truncate_to_repo = true
 style = 'bold cyan'
 
 [hostname]
-format = '[$ssh_symbol$hostname]($style) '
-style = 'bold blue'
+format = '[$ssh_symbol$hostname]($style)  '
+style = '#1793d1 bold'
 ssh_only = false
 
 [username]
 format = '[ $user]($style) '
 show_always = true
+style_user = 'yellow'
+style_root = 'red bold'
 
 [os]
 format = '$symbol'
 disabled = false
 
 [os.symbols]
-Arch = '[󰣇](bold blue) '
+Arch = '[󰣇](#1793d1 bold) '
