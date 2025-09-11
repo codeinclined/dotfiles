@@ -2,10 +2,15 @@
 
 add_newline = true
 format = """
-$os$hostname $username $azure
+$os$hostname $username $azure $kubernetes
 $git_branch$git_status$git_state$directory
 $status
 """
+
+[kubernetes]
+disabled = false
+format = '[$symbol$context( \($namespace\))]($style) '
+symbol = '󰠳 '
 
 [character]
 success_symbol = '[󰘧](bold green)'
